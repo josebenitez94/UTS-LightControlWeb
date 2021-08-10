@@ -1,0 +1,244 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Sistema RFID UTS</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+   <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+/*
+	    	$.ajax({
+			       async:  true, 
+			       type: "POST",
+			       url: "php/configuracionesIniciales.php",
+			       data: {},
+			       dataType:"json",
+			       success: function(data){
+			       	var selector = document.getElementById("salones");
+      				selector.innerHTML =data.HTMLResponse;
+			       }
+			  });
+*/
+        function agregarUsuario(){
+	        var identificacion=document.getElementById('nuevoUsuarioIdent').value;
+	        var nombre=document.getElementById('nuevoUsuario').value;
+	        var telefono=document.getElementById('nuevoTelefono').value;
+	        var direccion=document.getElementById('nuevoDireccion').value;
+	        var correo=document.getElementById('nuevoCorreo').value;
+	        var carrera=document.getElementById('carrera').value;
+	        var rol=document.getElementById('rol').value;
+	        //var tarjeta=document.getElementById('nuevoUsuarioTarjeta').value.toUpperCase();
+	        
+	        var parametros={"identificacion":identificacion,"nombre":nombre,"telefono":telefono,"direccion":direccion, "correo":correo, "carrera":carrera,"rol":rol};
+
+	        if(identificacion!="" && nombre!="" && telefono!=""  && direccion!="" && correo!="" && carrera!="Seleccione" && rol!="Seleccione"){
+		        $.ajax({
+		            async:  true, 
+		            type: "POST",
+		            url: "php/agregarUsuario.php",
+		            data: parametros,
+		            dataType:"json",
+		            success: function(data){
+		              if(data.HTMLResponse == "ok"){
+						document.getElementById('nuevoUsuarioIdent').value="";
+						document.getElementById('nuevoUsuario').value="";
+						document.getElementById('nuevoTelefono').value="";
+						document.getElementById('nuevoDireccion').value="";
+						document.getElementById('nuevoCorreo').value="";
+						document.getElementById('carrera').value="Seleccione";
+						document.getElementById('rol').value="Seleccione";
+						alert("¡Usuario Creado Satisfactoriamente!");
+		              }
+		              else{
+		              	alert("¡ERROR: Usuario ya se encuentra registrado en sistema!");
+		              }      
+		            }
+		        });
+		    }
+		    else{alert("debe rellenar todos los items especificados para agregar al usuario");}
+        }
+        function agregarHorario(){
+	        var identificacion=document.getElementById('HorarioIdentificacion').value;
+	        var salon=document.getElementById('salones').value;
+	        var diaSemana=document.getElementById('diaSemana').value;
+	        var horaInit=document.getElementById('horarioInit').value;
+	        var horaFin=document.getElementById('horarioFin').value;
+
+	        var parametros={"identificacion":identificacion,"salon":salon,"diaSemana":diaSemana,"horaInit":horaInit,"horaFin":horaFin};
+	        $.ajax({
+	            async:  true, 
+	            type: "POST",
+	            url: "php/agregarHorario.php",
+	            data: parametros,
+	            dataType:"json",
+	            success: function(data){
+	              alert(data.HTMLResponse);
+	            }
+	        });
+        }
+        function tabla(){
+        var parametros={};
+        $.ajax({
+            async:  true, 
+            type: "POST",
+            url: "php/tabla.php",
+            data: parametros,
+            dataType:"json",
+            success: function(data){
+              $('#divTabla').html(data.tabla);
+            }
+        });
+        } 
+        function tabla_transacciones(){
+        var parametros={};
+        $.ajax({
+            async:  true, 
+            type: "POST",
+            url: "php/tabla_transacciones.php",
+            data: parametros,
+            dataType:"json",
+            success: function(data){
+              $('#divTabla_transacciones').html(data.tabla);
+            }
+        });
+        } 
+    </script>
+		<!-- Header -->
+			<header id="header" >
+				<div class="inner">
+					<a href="#" class="image avatar"><img src="images/logo_uts.png" alt="" /></a>
+					<h1><strong>Pagina de Registro</strong><br>
+						visualización de salones<br>
+                        por tarjetas NFC <br></h1>
+					
+				</div>
+			</header>
+
+		<!-- Main -->
+			<div id="main" style="padding: 2em 4em 4em 4em;">
+
+				<!-- One -->
+
+					<section id="one">
+						<header class="major">
+							<h2>Agregar Nuevo Usuario</h2>
+						</header>
+						<p>En el siguiente apartado por favor agregar los siguientes datos:</p>
+						<div>Identificación:<input id="nuevoUsuarioIdent" type="text" class="cuadroTexto" maxlength="10" required></div>
+						<div>Nombre Completo:<input id="nuevoUsuario" type="text" class="cuadroTexto" maxlength="60" required></div>
+						<div>Telefono:<input id="nuevoTelefono" type="text" class="cuadroTexto" maxlength="10" required></div>
+						<div>Dirección:<input id="nuevoDireccion" type="text" class="cuadroTexto" maxlength="50" required></div>
+						<div>Correo:<input id="nuevoCorreo" type="Email" class="cuadroTexto" maxlength="30" required></div>
+						<div>Carrera:<select id="carrera" required>
+							<option value="Seleccione">Seleccione</option>
+							<option value="C1">Administración de Empresas</option>
+							<option value="C2">Contaduría Pública</option>
+							<option value="C3">Ingeniería Ambiental</option>
+							<option value="C4">Ingeniería Electromecánica</option>
+							<option value="C5">Ingeniería Electrónica</option>
+							<option value="C6">Ingeniería Eléctrica</option>
+							<option value="C7">Ingeniería Industrial</option>
+							<option value="C8">Ingeniería de Sistemas</option>
+							<option value="C9">Ingeniería de Telecomunicaciones</option>
+							<option value="C10">Ingeniería en Topografía</option>
+							<option value="C11">Profesional en Actividad Física y Deporte</option>
+							<option value="C12">Profesional en Administración Financiera</option>
+							<option value="C13">Profesional en Diseño de Moda</option>
+							<option value="C14">Profesional en Marketing y Negocios Internacionales</option>
+							<option value="C15">Tecnología en Desarrollo de Sistemas informáticos</option>
+							<option value="C16">Tecnología en Electricidad Industrial</option>
+							<option value="C17">Tecnología en Entrenamiento Deportivo</option>
+							<option value="C18">Tecnología en Gestión Agroindustrial</option>
+							<option value="C19">Tecnología en Gestión Bancaria y Financiera</option>
+							<option value="C20">Tecnología en Gestión Empresarial</option>
+							<option value="C21">Tecnología en Gestión de Sistemas de Telecomunicaciones</option>
+							<option value="C22">Tecnología en Gestión de la Moda</option>
+							<option value="C23">Tecnología en Implementación de Sistemas Electrónicos Industriales</option>
+							<option value="C24">Tecnología en Levantamientos Topográficos</option>
+							<option value="C25">Tecnología en Manejo de Recursos Ambientales</option>
+							<option value="C26">Tecnología en Manejo de la Información Contable</option>
+							<option value="C27">Tecnología en Mercadeo y Gestión Comercial</option>
+							<option value="C28">Tecnología en Operación y Mantenimiento Electromecánico</option>
+							<option value="C29">Tecnología en Producción Industrial</option>
+					    </select></div>
+					    <div>Rol:<select id="rol" required>
+					        <option value="Seleccione">Seleccione</option>
+					        <option value="Docente">Docente</option>
+					        <option value="Estudiante">Estudiante</option>
+					        <option value="Laboratorista">Laboratorista</option>
+					    </select></div>
+						    <br>
+						<ul class="actions">
+							<button class="button" onclick="agregarUsuario();">Agregar Nuevo Usuario</button></center>
+						</ul>
+					</section>
+
+				<!-- Two -->
+					<section id="two">
+						<header class="major">
+							<h2>Enlazar Tarjeta NFC</h2>
+						</header>
+						<p>En el siguiente apartado por favor agregar los siguientes datos:</p>
+						<div>Identificación:<input id="UsuarioIdent" type="text" class="cuadroTexto" maxlength="10" required></div>
+						<div>Nro de Tarjeta:<input id="nuevaTarjeta" type="text" class="cuadroTexto" maxlength="40" required></div>
+						<br>
+						<ul class="actions">
+							<button class="button" onclick="agregarTarjeta();">Enlazar Nueva Tarjeta</button></center>
+						</ul>
+					</section>
+
+					<section id="three">
+						<header class="major">
+							<h2>Agregar Salon de Clases</h2>
+						</header>
+						<p>En el siguiente apartado por favor agregar los siguientes datos:</p>
+						<div>Salon de Clases:<input id="salon" type="text" class="cuadroTexto" maxlength="20" required></div>
+						<div>MAC ControlLight:<input id="mac" type="text" class="cuadroTexto" maxlength="20" required></div>
+						<br>
+						<ul class="actions">
+							<button class="button" onclick="agregarSalon();">Agregar Salon de Clases</button></center>
+						</ul>
+					</section>
+
+<!--
+					<section id="three">
+						<h2>Estado de Dispositivos</h2>
+						<p>Esta Información corresponde a la disponible en la base de datos existente</p>
+						<ul class="actions">
+							<li><button class="button" onclick="tabla();">Generar Tabla</button></li>
+						</ul>
+						<div id="divTabla">
+						    
+						</div>
+					</section>
+-->
+
+		<!-- Footer -->
+			<footer id="footer">
+				<div class="inner">
+					<ul class="icons">
+					    <li><a href="https://www.facebook.com/UnidadesTecnologicasdeSantanderUTS" class="icon brands fa-facebook"><span class="label">Facebook</span></a></li>
+						<li><a href="https://twitter.com/unidades_uts/status/1175089000148873216" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+						<li><a href="https://www.youtube.com/channel/UC-rIi4OnN0R10Wp-cPiLcpQ" class="icon brands fa-youtube"><span class="label">Email</span></a></li>
+					</ul>
+					<ul class="copyright">
+						<li>&copy; No Registrado</li>
+					</ul>
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.poptrox.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

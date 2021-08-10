@@ -1,0 +1,158 @@
+*{
+	margin: 0;
+	padding: 0;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+ul,ol{
+	list-style: none;
+}
+
+body{
+	font-family: "Open+Sans:400,300,600,700";
+
+}
+
+.slideshow{
+	width: 100%;
+	position: relative;
+}
+
+.slider li, ul{
+	width: 100%;
+
+}
+
+.slider li{
+	overflow: hidden;
+}
+
+.slider li img{
+	width: 100%;
+}
+
+.slider .caption h3 {
+	display: block;
+
+		font-weight: 300;
+		font-size: 70px;
+		padding-bottom: 10px;
+		text-transform: none;
+		color: #ffffff;
+	}
+.slider .caption h3 span {
+		font-weight: 700;
+		color: #94c11f;
+		text-transform: uppercase;
+	}
+
+.slider .caption{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	padding: 15px 50px;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	text-align: center;
+	color: #fff;
+	z-index: 1;
+}
+
+
+.slider .caption p{
+	font-size: 20px;
+	font-weight: 400;
+	text-transform: none;
+	color:#ffffff;
+}
+
+
+.pagination{
+	position: absolute;
+	top: 102%;
+	width: 100%;
+
+	display: flex;
+	justify-content: center;
+}
+
+.pagination li{
+	font-size: 20px;
+	margin: 2px 5px;
+	color: #858585;
+	cursor: pointer;
+}
+
+.left, .right{
+	position: absolute;
+	top: 0;
+	height: 100%;
+
+	display: flex;
+	align-items: center;
+
+	color: #fff;
+	font-size: 35px;
+	cursor: pointer;
+	z-index: 2;
+}
+
+.left{
+	left: 10px;
+}
+
+.right{
+	right: 10px;
+}
+
+@media screen and (max-width: 600px){
+	.slider .caption p{
+		display:none;
+	}
+
+	.slider .caption h3{
+		font-size: 20px;
+	}
+	.slider .caption h3 span{
+		font-size: 20px;
+	}
+	.slider a.button1.transparente{
+		width: 70%;
+	font-size:12px;
+}
+	.left, .right{
+		font-size: 30px;
+	}
+
+	.slider li img{
+		width: 400px;
+	}
+
+	.pagination{
+		display: none;
+	}
+}
+@media screen and (max-width: 768px){
+	.slider .caption p{
+		display:none;
+	}
+
+	.slider .caption h3{
+		font-size: 24px;
+	}
+	.slider .caption h3 span{
+		font-size: 24px;
+	}
+	.slider a.button1.transparente{
+		width: 60%;
+	font-size:12px;
+}
+}
