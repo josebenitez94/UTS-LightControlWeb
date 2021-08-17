@@ -62,24 +62,72 @@
 		    }
 		    else{alert("debe rellenar todos los items especificados para agregar al usuario");}
         }
-        function agregarHorario(){
-	        var identificacion=document.getElementById('HorarioIdentificacion').value;
-	        var salon=document.getElementById('salones').value;
-	        var diaSemana=document.getElementById('diaSemana').value;
-	        var horaInit=document.getElementById('horarioInit').value;
-	        var horaFin=document.getElementById('horarioFin').value;
 
-	        var parametros={"identificacion":identificacion,"salon":salon,"diaSemana":diaSemana,"horaInit":horaInit,"horaFin":horaFin};
-	        $.ajax({
-	            async:  true, 
-	            type: "POST",
-	            url: "php/agregarHorario.php",
-	            data: parametros,
-	            dataType:"json",
-	            success: function(data){
-	              alert(data.HTMLResponse);
-	            }
-	        });
+		function agregarTarjeta(){
+	        var identificacion=document.getElementById('UsuarioIdent').value;
+	        var tarjetas=document.getElementById('nuevaTarjeta').value;
+	        
+	        var parametros={"identificacion":identificacion,"tarjetas":tarjetas};
+
+	        if(identificacion!="" && tarjetas!=""){
+		        $.ajax({
+		            async:  true, 
+		            type: "POST",
+		            url: "php/agregarTarjeta.php",
+		            data: parametros,
+		            dataType:"json",
+		            success: function(data){
+		              if(data.HTMLResponse == "OK"){
+						alert("¡Tarjeta Enlazada Satisfactoriamente!");
+						document.getElementById('UsuarioIdent').value="";
+						document.getElementById('nuevaTarjeta').value="";
+		              }
+		              else{
+		              	if(data.HTMLResponse == "ID ERROR"){
+		              		alert("¡ERROR :: identificación inexistente en base de datos! Primero debe agregar el usuario");
+		              	}
+		              	else{
+		              		alert("¡ERROR: Tarjeta Utilizada Con Otro Usuario!");
+		              	}
+		              }      
+		            }
+		        });
+		    }
+		    else{alert("debe rellenar todos los items especificados para agregar al usuario");}
+        }
+
+
+        function agregarSalon(){
+	        var mac=document.getElementById('mac').value;
+	        var salon=document.getElementById('salon').value;
+
+	        if(mac!="" && salon!=""){
+		        var parametros={"mac":mac,"salon":salon};
+		        $.ajax({
+		            async:  true, 
+		            type: "POST",
+		            url: "php/agregarSalon.php",
+		            data: parametros,
+		            dataType:"json",
+		            success: function(data){
+		              if(data.HTMLResponse == "OK"){
+						alert("¡Salon Agregado Satisfactoriamente!");
+						document.getElementById('mac').value="";
+						document.getElementById('salon').value="";
+		              }
+		              else{
+		              	alert("¡ERROR :: MAC ya está siendo utilizada");
+		              }
+
+		            },
+		            error: function(data){
+		           	  alert("¡Error Fatal!");
+		            },
+		        });
+		    }
+		    else{
+		    	alert("debe rellenar todos los items especificados para agregar al usuario");
+		    }
         }
         function tabla(){
         var parametros={};
