@@ -26,8 +26,8 @@
     
 <!-- Main -->
     <div id="main" style="padding: 2em 0em 0em 0em;">
-
     <section id="one">
+        <a href="index.html">VOLVER A PAGINA PRINCIPAL</a>
       <div class="">
        <div class="panel panel-primary">
         <div class="panel-heading">Tabla de Dispositivos</div>
@@ -50,6 +50,7 @@
         </div>
        </div>
       </div>
+      <a href="php/visualizar_pdf.php">Descargar en PDF</a>
     </section>
 
     <!-- Footer -->

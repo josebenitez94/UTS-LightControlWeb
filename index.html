@@ -11,19 +11,6 @@
    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 
     <script type="text/javascript">
-/*
-	    	$.ajax({
-			       async:  true, 
-			       type: "POST",
-			       url: "php/configuracionesIniciales.php",
-			       data: {},
-			       dataType:"json",
-			       success: function(data){
-			       	var selector = document.getElementById("salones");
-      				selector.innerHTML =data.HTMLResponse;
-			       }
-			  });
-*/
         function agregarUsuario(){
 	        var identificacion=document.getElementById('nuevoUsuarioIdent').value;
 	        var nombre=document.getElementById('nuevoUsuario').value;
@@ -32,7 +19,6 @@
 	        var correo=document.getElementById('nuevoCorreo').value;
 	        var carrera=document.getElementById('carrera').value;
 	        var rol=document.getElementById('rol').value;
-	        //var tarjeta=document.getElementById('nuevoUsuarioTarjeta').value.toUpperCase();
 	        
 	        var parametros={"identificacion":identificacion,"nombre":nombre,"telefono":telefono,"direccion":direccion, "correo":correo, "carrera":carrera,"rol":rol};
 
@@ -171,6 +157,13 @@
 			<div id="main" style="padding: 2em 4em 4em 4em;">
 
 				<!-- One -->
+
+					<section id="one">
+						<header class="major">
+							<h2>Visualizar Tabla de Registros</h2>
+						</header>
+						<a href="salones.php">Click aquí para ir a Tabla de registros</a>
+					</section>
 
 					<section id="one">
 						<header class="major">
