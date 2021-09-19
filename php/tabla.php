@@ -1,46 +1,54 @@
 <?php 
 require("credenciales.php");
+date_default_timezone_set('America/Bogota');
 
 $jsondata=array();
 
-$conexion=conectDB("dbtarjeteros");
-$consulta="select * from (select * from acceso group by `Fecha` DESC) as a group by a.`Salon`";
+$conexion=conectDB("lightcontroldb");
+$consulta="SELECT `seguimiento`.`fecha`, `usuario`.`nombre`, `usuario`.`rol`, `salon`.`salon`, `seguimiento`.`estado` FROM `seguimiento` LEFT JOIN `tarjeta` ON `seguimiento`.`idTarjeta` = `tarjeta`.`idTarjeta` LEFT JOIN `salon` ON `salon`.`idLector`= `seguimiento`.`idLector` LEFT JOIN `usuario` ON `usuario`.`cedula` = `tarjeta`.`cedula` WHERE 1 ORDER BY `seguimiento`.`fecha` DESC";
 $resultado=mysqli_query($conexion, $consulta);
 
-$tabla="<table width='100%' cellspacing='0'>".
+$tabla="<table width='100%'>".
         "<thead>".
         "<tr>".
-        "<th>Fecha</th>".
-        "<th>ID de Tarjeta</th>".
-        "<th>Salon</th>".
-        "<th>Estado de luz</th>".
+        "<th>FECHA</th>".
+        "<th>NOMBRE</th>".
+        "<th>ROL</th>".
+        "<th>SALON</th>".
+        "<th>Estado</th>".
+        "<th>CONECTIVIDAD</th>".
         "</tr>".
         "</thead>".
         "<tfoot>".
         "<tr>".
-        "<th>Fecha</th>".
-        "<th>ID de Tarjeta</th>".
-        "<th>Salon</th>".
-        "<th>Estado de luz</th>".
+        "<th>FECHA</th>".
+        "<th>NOMBRE</th>".
+        "<th>ROL</th>".
+        "<th>SALON</th>".
+        "<th>Estado</th>".
+        "<th>CONECTIVIDAD</th>".
         "</tr>".
         "</tfoot>".
         "<tbody>";
 
-$color="Apagado";
-while($resultado_=mysqli_fetch_row($resultado)){
+$color="gray";
+
+while($resultado_ = mysqli_fetch_row($resultado)){
+  /*
   if($resultado_[2]=="Encendido"){
     $color="green";
   }
   else{
     $color="gray";
   }
-
+*/
   $tabla=$tabla.  
        "<tr>".
-       "<td style='background:".$color.";color: white;'>".$resultado_[0]."</td>".
-       "<td style='background:".$color.";color: white;'>".$resultado_[1]."</td>".
-       "<td style='background:".$color.";color: white;'>".$resultado_[3]."</td>".
-       "<td style='background:".$color.";color: white;'>".$resultado_[2]."</td>".
+       "<td style='background:".$color.";color: red;'>".$resultado_[0]."</td>".
+       "<td style='background:".$color.";color: red;'>".$resultado_[1]."</td>".
+       "<td style='background:".$color.";color: red;'>".$resultado_[2]."</td>".
+       "<td style='background:".$color.";color: red;'>".$resultado_[3]."</td>".
+       "<td style='background:".$color.";color: red;'>".$resultado_[4]."</td>".
        "</tr>";
 }
 

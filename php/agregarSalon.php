@@ -15,6 +15,8 @@ if($resultado[0] == 0){
 	$consulta="INSERT INTO `salon`(`idLector`, `salon`) VALUES ('$mac','$salon')";
 	mysqli_query($conexion, $consulta);
 	$jsondata['HTMLResponse']="OK";
+	$consulta="INSERT INTO `linestate`(`mac`, `status`) VALUES ('$mac','offline')";
+	mysqli_query($conexion, $consulta);
 }
 else{
 	$jsondata['HTMLResponse']="NO";

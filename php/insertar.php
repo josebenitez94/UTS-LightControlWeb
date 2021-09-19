@@ -40,11 +40,11 @@ if($id!="" && $mac!="" && $tipo!=""){
 			if($resultadoEstado[0]=="apagado" || $resultadoEstado[0]=="apagadoAuto"){
 				$nextStatus = "encendido";
 				$consulta="INSERT INTO `seguimiento`(`idTarjeta`, `idLector`, `fecha`, `estado`) VALUES ('$id','$mac','$fechaActual','$nextStatus')";
-				if($resultadoRolActual[0] == "estudiante"){
+				if($resultadoRolActual[0] == "estudiante"){//OK
 					mysqli_query($conexion, $consulta);
 					echo("15");
 				}
-				else if($resultadoRolActual[0] == "docente"){
+				else if($resultadoRolActual[0] == "docente"){//OK
 					mysqli_query($conexion, $consulta);
 					echo("90");
 				}
@@ -67,26 +67,26 @@ if($id!="" && $mac!="" && $tipo!=""){
 				$resultadoRolAnterior[0] = "docente";
 			}
 
-			if($resultadoEstado[0]=="encendido" && $tipo=="normal"){
-				if($resultadoRolActual[0]=="estudiante"){
+			if($resultadoEstado[0]=="encendido" && $tipo=="normal"){//OK
+				if($resultadoRolActual[0]=="estudiante"){//OK
 					if($resultadoRolAnterior[0] == "estudiante"){
 						$nextStatus = "apagado";
 						$consulta="INSERT INTO `seguimiento`(`idTarjeta`, `idLector`, `fecha`, `estado`) VALUES ('$id','$mac','$fechaActual','$nextStatus')";
 						mysqli_query($conexion, $consulta);
 						echo "0";
 					}
-					if($resultadoRolAnterior[0] == "docente"){
+					if($resultadoRolAnterior[0] == "docente"){//OK
 						echo "NADA";
 					}
 				}
-				if($resultadoRolActual[0]=="docente"){
+				if($resultadoRolActual[0]=="docente"){//OK
 					if($resultadoRolAnterior[0] == "estudiante"){//OK
 						$nextStatus = "apagado";
 						$consulta="INSERT INTO `seguimiento`(`idTarjeta`, `idLector`, `fecha`, `estado`) VALUES ('$id','$mac','$fechaActual','$nextStatus')";
 						mysqli_query($conexion, $consulta);
 						echo "0";
 					}
-					else if($resultadoRolAnterior[0] == "docente" && $resultadoIdAnterior==$id){
+					else if($resultadoRolAnterior[0] == "docente" && $resultadoIdAnterior[0]==$id){//OK
 						$fechaActualConsulta = date('H');
 						if($fechaActualConsulta>=6 && $fechaActualConsulta<=5){
 							echo "SLEEP";
@@ -101,7 +101,6 @@ if($id!="" && $mac!="" && $tipo!=""){
 					else{
 						echo "NADA";
 					}
-
 				} 	
 			}
 
@@ -111,13 +110,14 @@ if($id!="" && $mac!="" && $tipo!=""){
 				mysqli_query($conexion, $consulta);
 				echo "0";
 			}
-
+			/*
 			if($resultadoEstado[0]=="encendido" && $tipo=="sleep" && $resultadoIdAnterior[0]==$id){
 				$nextStatus = "apagado";
 				$consulta="INSERT INTO `seguimiento`(`idTarjeta`, `idLector`, `fecha`, `estado`) VALUES ('$id','$mac','$fechaActual','$nextStatus')";
 				mysqli_query($conexion, $consulta);
 				echo "0";
 			}
+			*/
 		}
 		else{
 			echo("LECTOR_ERROR");
