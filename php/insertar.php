@@ -37,7 +37,7 @@ if($id!="" && $mac!="" && $tipo!=""){
 			$resultadoEstado=mysqli_fetch_row(mysqli_query($conexion, $consulta));
 
 
-			if($resultadoEstado[0]=="apagado" || $resultadoEstado[0]=="apagadoAuto"){
+			if($resultadoEstado[0]=="apagado" || $resultadoEstado[0]=="apagadoAuto" || $resultadoEstado[0]=="bombilloError"){
 				$nextStatus = "encendido";
 				$consulta="INSERT INTO `seguimiento`(`idTarjeta`, `idLector`, `fecha`, `estado`) VALUES ('$id','$mac','$fechaActual','$nextStatus')";
 				if($resultadoRolActual[0] == "estudiante"){//OK
@@ -104,8 +104,11 @@ if($id!="" && $mac!="" && $tipo!=""){
 				} 	
 			}
 
-			if($resultadoEstado[0]=="encendido" && $tipo=="auto"){//OK
+			if($resultadoEstado[0]=="encendido" && ($tipo=="auto" || $tipo=="error")){//OK
 				$nextStatus = "apagadoAuto";
+				if($tipo == "error"){
+					$nextStatus = "bombilloError";
+				}
 				$consulta="INSERT INTO `seguimiento`(`idTarjeta`, `idLector`, `fecha`, `estado`) VALUES ('$resultadoIdAnterior[0]','$mac','$fechaActual','$nextStatus')";
 				mysqli_query($conexion, $consulta);
 				echo "0";

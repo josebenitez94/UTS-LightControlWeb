@@ -5,13 +5,24 @@ _Este repositorio se crea con el fin de llevar el almacenamiento y desarrollo de
 ### Pre-requisitos 📋
 
 * [Instalar XAMPP para Windows](https://www.apachefriends.org/xampp-files/8.0.9/xampp-windows-x64-8.0.9-0-VS16-installer.exe)
-* Configuraciones XAMPP para acceso local
+* [Configuraciones XAMPP para acceso local] https://www.youtube.com/watch?v=puq0tb2xjUA&ab_channel=xCraash
 * Descargar e instalar proyecto en xampp/htdocs
 * Importar Base de Datos en Gestor MySql y habilitar usuario root
-* Subir servicios
+* Subir servicios Apache y MySql
 * Utilizar a la par el proyecto [UTS-LightControlESP32](https://github.com/josebenitez94/UTS-LightControl)
 
 ## Ejecutando las pruebas ⚙️
+* Entrar a http://IP_SERVER:PORT/UTS-LightControlWeb :: si esto funciona es porque el servicio se encuentra en linea de forma satisfactoriamente
+* Agregar un usuario con su respectiva tarjeta
+* Descargar y usar el hardware para probar que efectivamente se suban las ordenes
+
+## PAGINAS WEB VISIBLES 📋
+* http://IP_SERVER:PORT/UTS-LightControlWeb :: Pagina principal donde:
+_Agregar usuarios_
+_Enlazar Tarjetas NFC_
+_Agregar Salon de Clases_
+* http://IP_SERVER:PORT/UTS-LightControlWeb/salones.php :: tabla con reporte web de registros
+* http://IP_SERVER:PORT/UTS-LightControlWeb/php/visualizar_pdf.php :: tabla exportada como PDF de registros
 
 __
 
